@@ -1,5 +1,7 @@
 package main.java.redis;
 
+import main.java.redis.command.CommandDispatcher;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;

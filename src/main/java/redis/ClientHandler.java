@@ -1,5 +1,7 @@
 package main.java.redis;
 
+import main.java.redis.command.CommandDispatcher;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;

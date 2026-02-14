@@ -1,5 +1,7 @@
 package main.java.redis
 
+import main.java.redis.command.CommandDispatcher
+import spock.lang.PendingFeature
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -81,6 +83,40 @@ class CommandDispatcherTest extends Specification {
         expect:
         dispatcher.handleCommands("EXPIRE SET mykey") == "-ERR wrong number of arguments"
     }
+
+    def "RPUSH command should store a key-value pair and return OK"(){
+        expect:
+        dispatcher.handleCommands("RPUSH mylist value1") == "+OK"
+    }
+
+    @PendingFeature
+    def "RPUSH command with insufficient arguments sreturn OK for multiple elems"() {
+        expect:
+        dispatcher.handleCommands("RPUSH mylist value1 value2 value3 ") == "+OK"
+    }
+
+
+    def "LPUSH command should store a key-value pair and return OK"(){
+        expect:
+        dispatcher.handleCommands("LPUSH mylist value1") == "+OK"
+    }
+
+    @PendingFeature
+    def "LPUSH ccommand should store a key-value pair and return OK for multiple elems"() {
+        expect:
+        dispatcher.handleCommands("LPUSH mylist value1 value2 value3 ") == "+OK"
+    }
+
+    def "LPUSH command with insufficient arguments should return error"() {
+        expect:
+        dispatcher.handleCommands("LPUSH mylist ") == "-ERR wrong number of arguments"
+    }
+
+    def "RLPUSH command with insufficient arguments should return error"() {
+        expect:
+        dispatcher.handleCommands("RPUSH mylist ") == "-ERR wrong number of arguments"
+    }
+
 
     def "GET should return NIL for expired key"() {
         given:
